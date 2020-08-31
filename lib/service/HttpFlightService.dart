@@ -4,15 +4,12 @@ import 'dart:io';
 import 'package:ticket_app/configs/constants.dart';
 import 'package:ticket_app/model/flight_model.dart';
 import 'package:http/http.dart' as http;
-
-abstract class IHttpFlightService {
-  Future<List<FlightModel>> getFlightList();
-}
+import 'package:ticket_app/service/IHttpFlightService.dart';
 
 class HttpFlightService extends IHttpFlightService {
   @override
   Future<List<FlightModel>> getFlightList() async {
-    var url = Constants.baseUrl + "Flights";
+    var url = Constants.baseUrl + "Flights.json";
     var response = await http.get(url);
     List<FlightModel> flightList = List();
 

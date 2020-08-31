@@ -10,7 +10,11 @@ class FlightCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Card(
         child: Row(
-          children: [buildFlightIcon(), buildFlightInfo(context)],
+          children: [
+            buildFlightIcon(),
+            buildFlightInfo(context),
+            buildAddButton(context)
+          ],
         ),
         elevation: 5,
       ),
@@ -26,10 +30,13 @@ class FlightCard extends StatelessWidget {
 
   Expanded buildFlightInfo(BuildContext context) {
     return Expanded(
-        flex: 8,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [buildCityInfo(context), buildTimeInfo(context)],
+        flex: 6,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [buildCityInfo(context), buildTimeInfo(context)],
+          ),
         ));
   }
 
@@ -50,6 +57,23 @@ class FlightCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: MediaQuery.of(context).size.height / 35))
       ],
+    );
+  }
+
+  Expanded buildAddButton(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 60.0),
+        child: IconButton(
+          icon: Icon(
+            Icons.add_box,
+            color: Colors.green,
+            size: MediaQuery.of(context).size.height / 20,
+          ),
+          onPressed: () {},
+        ),
+      ),
     );
   }
 

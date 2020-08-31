@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ticket_app/components/flight_card.dart';
+import 'package:ticket_app/viewModel/home_page_viewModel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -8,15 +9,19 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends HomePageViewModel {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: EdgeInsets.only(right: 20, left: 20),
-        itemExtent: MediaQuery.of(context).size.height / 5,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return FlightCard();
-        });
+    return isLoading
+        ? buildProgressIndicator()
+        : ListView.builder(
+            padding: EdgeInsets.only(right: 20, left: 20),
+            itemExtent: MediaQuery.of(context).size.height / 5,
+            itemCount: flightList.length,
+            itemBuilder: (context, index) {
+              return FlightCard(flightList[index]);
+            });
   }
+
+  Center buildProgressIndicator() => Center(child: CircularProgressIndicator());
 }

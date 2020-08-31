@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ticket_app/configs/constants.dart';
+import 'package:ticket_app/model/flight_model.dart';
 
 class FlightCard extends StatelessWidget {
-  const FlightCard({Key key}) : super(key: key);
-
+  const FlightCard(this.flight, {Key key}) : super(key: key);
+  final FlightModel flight;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,7 +13,10 @@ class FlightCard extends StatelessWidget {
         child: Row(
           children: [
             buildFlightIcon(),
-            buildFlightInfo(context),
+            buildFlightInfo(
+              context,
+              flight,
+            ),
             buildAddButton(context)
           ],
         ),
@@ -28,30 +32,30 @@ class FlightCard extends StatelessWidget {
         child: Icon(Icons.flight_takeoff, color: Constants.firstColor),
       ));
 
-  Expanded buildFlightInfo(BuildContext context) {
+  Expanded buildFlightInfo(BuildContext context, FlightModel flight) {
     return Expanded(
         flex: 6,
         child: Padding(
           padding: const EdgeInsets.only(left: 15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [buildCityInfo(context), buildTimeInfo(context)],
+            children: [buildCityInfo(context, flight), buildTimeInfo(context)],
           ),
         ));
   }
 
-  Row buildCityInfo(BuildContext context) {
+  Row buildCityInfo(BuildContext context, FlightModel flight) {
     return Row(
       children: [
         Text(
-          'İstanbul',
+          flight.fromWhere,
           style: TextStyle(
               color: Constants.secondColor,
               fontWeight: FontWeight.bold,
               fontSize: MediaQuery.of(context).size.height / 35),
         ),
         Icon(Icons.navigate_next),
-        Text('Ankara',
+        Text(flight.toWhere,
             style: TextStyle(
                 color: Constants.firstColor,
                 fontWeight: FontWeight.bold,
@@ -80,7 +84,7 @@ class FlightCard extends StatelessWidget {
   Row buildTimeInfo(BuildContext context) {
     return Row(
       children: [
-        Text('16:00 ',
+        Text(flight.flightTime,
             style: TextStyle(
                 color: Colors.grey[700],
                 fontWeight: FontWeight.bold,
@@ -89,7 +93,7 @@ class FlightCard extends StatelessWidget {
           Icons.access_time,
           color: Colors.grey[700],
         ),
-        Text(' 20:00',
+        Text(flight.flightDuration.toString(),
             style: TextStyle(
                 color: Colors.grey[700],
                 fontWeight: FontWeight.bold,

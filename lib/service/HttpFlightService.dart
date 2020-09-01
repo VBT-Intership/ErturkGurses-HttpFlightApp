@@ -7,6 +7,18 @@ import 'package:http/http.dart' as http;
 import 'package:ticket_app/service/IHttpFlightService.dart';
 
 class HttpFlightService extends IHttpFlightService {
+  Future<void> deleteFlight(int index) async {
+    var url = Constants.baseUrl + "Flights/$index.json";
+    print(url);
+    var response = await http.delete(url);
+    switch (response.statusCode) {
+      case HttpStatus.ok:
+        print("Başarılı");
+        break;
+      default:
+    }
+  }
+
   @override
   Future<List<FlightModel>> getFlightList() async {
     var url = Constants.baseUrl + "Flights.json";

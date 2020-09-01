@@ -10,6 +10,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends HomePageViewModel {
+  void deleteFlight(int index) {
+    setState(() {
+      flightList.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -19,7 +25,8 @@ class _HomePageState extends HomePageViewModel {
             itemExtent: MediaQuery.of(context).size.height / 5,
             itemCount: flightList.length,
             itemBuilder: (context, index) {
-              return FlightCard(flightList[index]);
+              return FlightCard(flightList[index],
+                  onDelete: () => deleteFlight(index));
             });
   }
 
